@@ -1,0 +1,4 @@
+#!/home/action/leadscrape/scrapy/bin/python
+
+from scrapy.cmdline import execute
+execute()
