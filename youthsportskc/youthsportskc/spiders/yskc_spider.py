@@ -33,14 +33,14 @@ class YouthsportskcSpider(CrawlSpider):
     
     def parse_item(self, response):
         sel = Selector(response)
-        orgs = sel.xpath('//div[@class="summary"]')
+        orgs = sel.xpath('//div[contains(@id,"listing_summary_")]')
         items = []
         for orgs in orgs:
             item = YouthsportskcItem()
-            item['name'] = orgs.xpath('.//div[@class="title"]//a[1]/text()').extract()        
+            item['name'] = orgs.xpath('.//div[@class="title"]//h3//a/text()').extract()        
             item['category'] = orgs.xpath('.//div[@class="title"]//p//a/text()').extract()
-            item['address'] = orgs.xpath('.//div[@class="info"]//address//span/text()').extract()
-            item['phone'] = orgs.xpath('/.//*[@class="hide"]/text()')
+            item['address'] = orgs.xpath('.//div[@class="info"]/address//span/text()').extract()
+            item['phone'] = orgs.xpath('.//span[contains(@id,"phoneNumber")]/text()').extract()
             items.append(item)
         return items
             
